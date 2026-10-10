@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>Tenders</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="navbar">
+
+        <a href="{{ url_for('home') }}">Home</a>
+
+        <a href="{{ url_for('agencies') }}">Agencies</a>
+
+        <a href="{{ url_for('bidders') }}">Bidders</a>
+
+        <a href="{{ url_for('tenders') }}">Tenders</a>
+
+        <a href="{{ url_for('bids') }}">Bids</a>
+
+    </div>
+
+    <h2 class="page-title">Tender Management</h2>
+
+    <div class="card">
+
+        <h2>Tender Details</h2>
+
+        <form method="GET"
+              action="{{ url_for('tenders') }}"
+              class="search-box">
+
+            <input type="text"
+                   name="search"
+                   placeholder="Search tenders..."
+                   value="{{ search }}">
+
+            <button type="submit">
+                Search
+            </button>
+
+            <a href="{{ url_for('tenders') }}">
+                Clear
+            </a>
+
+        </form>
+
+        <br>
+
+        <table>
+
+            <tr>
+
+                <th>ID</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Agency</th>
+                <th>Amount</th>
+                <th>Deadline</th>
+                <th>Status</th>
+                <th>Actions</th>
+
+            </tr>
+
+            {% for row in rows %}
+
+            <tr>
+
+                <td>{{ row.tender_id }}</td>
+
+                <td>{{ row.tender_title }}</td>
+
+                <td>{{ row.description }}</td>
+
+                <td>{{ row.agency_name }}</td>
+
+                <td>{{ row.tender_amount }}</td>
+
+                <td>{{ row.deadline }}</td>
+
+                <td>{{ row.status }}</td>
+
+                <td>
+
+                    <a class="edit-btn"
+                       href="{{ url_for('edit_tender',
+                                        tender_id=row.tender_id) }}">
+                        Edit
+                    </a>
+
+                    <form action="{{ url_for('delete_tender',
+                                              tender_id=row.tender_id) }}"
+                          method="POST"
+                          style="display:inline;">
+
+                        <button class="delete-btn"
+                                type="submit">
+                            Delete
+                        </button>
+
+                    </form>
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+    <div class="card">
+
+        <h2>Add New Tender</h2>
+
+        <form action="{{ url_for('add_tender') }}"
+              method="POST">
+
+            <div class="form-container">
+
+                <label>Tender Title</label>
+
+                <input type="text"
+                       name="tender_title"
+                       required>
+
+                <label>Tender Amount</label>
+
+                <input type="number"
+                       step="0.01"
+                       min="0"
+                       name="tender_amount"
+                       required>
+
+                <label>Description</label>
+
+                <textarea name="description"
+                          required></textarea>
+
+                <label>Deadline</label>
+
+                <input type="date"
+                       name="deadline"
+                       required>
+
+                <label>Agency</label>
+
+                <select name="agency_id"
+                        required>
+
+                    <option value="">
+                        Select Agency
+                    </option>
+
+                    {% for agency in agencies %}
+
+                    <option value="{{ agency.agency_id }}">
+                        {{ agency.agency_name }}
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+                <label>Status</label>
+
+                <select name="status">
+
+                    <option value="Open">
+                        Open
+                    </option>
+
+                    <option value="Closed">
+                        Closed
+                    </option>
+
+                </select>
+
+                <button type="submit">
+                    Add Tender
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>

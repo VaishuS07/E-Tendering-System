@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Agencies - e-Tendering</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f6f8;
+        }
+
+        header {
+            background-color: #1f4e78;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #17365d;
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 20px;
+        }
+
+        .container {
+            width: 90%;
+            margin: 30px auto;
+        }
+
+        h2 {
+            color: #1f4e78;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+        }
+
+        th {
+            background-color: #1f4e78;
+            color: white;
+            padding: 12px;
+        }
+
+        td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>Agency Management</h1>
+
+</header>
+
+<nav>
+
+    <a href="{{ url_for('home') }}">Home</a>
+    <a href="{{ url_for('agencies') }}">Agencies</a>
+    <a href="{{ url_for('bidders') }}">Bidders</a>
+    <a href="{{ url_for('tenders') }}">Tenders</a>
+    <a href="{{ url_for('bids') }}">Bids</a>
+
+</nav>
+
+<div class="container">
+
+    <h2>Registered Agencies</h2>
+
+    <table>
+
+        <tr>
+
+            <th>Agency ID</th>
+            <th>Agency Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Actions</th>
+
+        </tr>
+
+        {% for row in rows %}
+
+        <tr>
+
+            <td>{{ row.agency_id }}</td>
+
+            <td>{{ row.agency_name }}</td>
+
+            <td>{{ row.email }}</td>
+
+            <td>{{ row.phone }}</td>
+
+            <td>{{ row.address }}</td>
+
+            <td>
+
+                <a class="edit-btn"
+                   href="{{ url_for('edit_agency', agency_id=row.agency_id) }}">
+                    Edit
+                </a>
+
+                <form action="{{ url_for('delete_agency', agency_id=row.agency_id) }}"
+                      method="POST"
+                      style="display:inline;">
+
+                    <button class="delete-btn"
+                            type="submit">
+                        Delete
+                    </button>
+
+                </form>
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Agency</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="navbar">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('agencies') }}">Agencies</a>
+        <a href="{{ url_for('bidders') }}">Bidders</a>
+        <a href="{{ url_for('tenders') }}">Tenders</a>
+        <a href="{{ url_for('bids') }}">Bids</a>
+    </div>
+
+    <div class="card form-container">
+
+        <h2 class="page-title">Edit Agency</h2>
+
+        <form method="POST">
+
+            <label>Agency Name</label>
+            <input type="text"
+                   name="agency_name"
+                   value="{{ agency.agency_name }}"
+                   required>
+
+            <label>Email</label>
+            <input type="email"
+                   name="email"
+                   value="{{ agency.email }}"
+                   required>
+
+            <label>Phone</label>
+            <input type="text"
+                   name="phone"
+                   value="{{ agency.phone }}"
+                   required>
+
+            <label>Address</label>
+            <textarea name="address"
+                      required>{{ agency.address }}</textarea>
+
+            <button type="submit">
+                Update Agency
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>
+

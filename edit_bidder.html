@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Bidder</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="navbar">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('agencies') }}">Agencies</a>
+        <a href="{{ url_for('bidders') }}">Bidders</a>
+        <a href="{{ url_for('tenders') }}">Tenders</a>
+    </div>
+
+    <div class="card form-container">
+
+        <h2 class="page-title">Edit Bidder</h2>
+
+        <form method="POST">
+
+            <label>Bidder Name</label>
+            <input type="text"
+                   name="bidder_name"
+                   value="{{ bidder.bidder_name }}"
+                   required>
+
+            <label>Email</label>
+            <input type="email"
+                   name="email"
+                   value="{{ bidder.email }}"
+                   required>
+
+            <label>Phone</label>
+            <input type="text"
+                   name="phone"
+                   value="{{ bidder.phone }}"
+                   required>
+
+            <label>Company Name</label>
+            <input type="text"
+                   name="company_name"
+                   value="{{ bidder.company_name }}"
+                   required>
+
+            <label>Address</label>
+            <textarea name="address"
+                      required>{{ bidder.address }}</textarea>
+
+            <button type="submit">
+                Update Bidder
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>
+

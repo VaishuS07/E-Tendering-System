@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Edit Tender</title>
+
+
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}">
+
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="navbar">
+    <a href="{{ url_for('home') }}">Home</a>
+    <a href="{{ url_for('agencies') }}">Agencies</a>
+    <a href="{{ url_for('bidders') }}">Bidders</a>
+    <a href="{{ url_for('tenders') }}">Tenders</a>
+</div>
+
+<div class="card form-container">
+
+    <h2 class="page-title">Edit Tender</h2>
+
+    <form method="POST">
+
+        <label>Tender Title</label>
+        <input type="text"
+               name="tender_title"
+               value="{{ tender.tender_title }}"
+               required>
+
+        <label>Description</label>
+        <textarea name="description"
+                  required>{{ tender.description }}</textarea>
+
+        <label>Agency</label>
+        <select name="agency_id" required>
+
+            {% for agency in agencies %}
+
+                <option value="{{ agency.agency_id }}"
+                    {% if agency.agency_id == tender.agency_id %}
+                        selected
+                    {% endif %}>
+
+                    {{ agency.agency_name }}
+
+                </option>
+
+            {% endfor %}
+
+        </select>
+
+        <label>Tender Amount</label>
+        <input type="number"
+               name="tender_amount"
+               step="0.01"
+               value="{{ tender.tender_amount }}"
+               required>
+
+        <label>Deadline</label>
+        <input type="date"
+               name="deadline"
+               value="{{ tender.deadline }}"
+               required>
+
+        <label>Status</label>
+        <select name="status" required>
+
+            <option value="Open"
+                {% if tender.status == "Open" %}selected{% endif %}>
+                Open
+            </option>
+
+            <option value="Closed"
+                {% if tender.status == "Closed" %}selected{% endif %}>
+                Closed
+            </option>
+
+            <option value="Pending"
+                {% if tender.status == "Pending" %}selected{% endif %}>
+                Pending
+            </option>
+
+        </select>
+
+        <button type="submit">
+            Update Tender
+        </button>
+
+    </form>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

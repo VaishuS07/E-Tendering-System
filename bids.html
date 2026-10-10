@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Bids</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="navbar">
+
+        <a href="{{ url_for('home') }}">Home</a>
+
+        <a href="{{ url_for('agencies') }}">Agencies</a>
+
+        <a href="{{ url_for('bidders') }}">Bidders</a>
+
+        <a href="{{ url_for('tenders') }}">Tenders</a>
+
+        <a href="{{ url_for('bids') }}">Bids</a>
+
+    </div>
+
+    <h2 class="page-title">Bid Management</h2>
+
+    <div class="card">
+
+        <h2>Bid Details</h2>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Bid ID</th>
+                    <th>Tender</th>
+                    <th>Bidder</th>
+                    <th>Company</th>
+                    <th>Bid Amount</th>
+                    <th>Status</th>
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for row in rows %}
+
+                <tr>
+
+                    <td>{{ row.bid_id }}</td>
+
+                    <td>{{ row.tender_title }}</td>
+
+                    <td>{{ row.bidder_name }}</td>
+
+                    <td>{{ row.company_name }}</td>
+
+                    <td>{{ row.bid_amount }}</td>
+
+                    <td>{{ row.status }}</td>
+
+                    <td>
+
+                        <form method="POST"
+                              action="{{ url_for('update_bid_status', bid_id=row.bid_id) }}">
+
+                            <select name="status" required>
+
+                                <option value="Pending"
+                                    {% if row.status == "Pending" %}selected{% endif %}>
+                                    Pending
+                                </option>
+
+                                <option value="Approved"
+                                    {% if row.status == "Approved" %}selected{% endif %}>
+                                    Approved
+                                </option>
+
+                                <option value="Rejected"
+                                    {% if row.status == "Rejected" %}selected{% endif %}>
+                                    Rejected
+                                </option>
+
+                            </select>
+
+                            <button type="submit">
+                                Update
+                            </button>
+
+                        </form>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>
